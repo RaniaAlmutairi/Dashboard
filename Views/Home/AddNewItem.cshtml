@@ -1,0 +1,143 @@
+﻿@model IEnumerable<Product>
+
+@{
+    ViewData["Title"] = "Add Product";
+}
+@*//------------------------------------------------------------------AddJavaScript---------------------------------------------------------------------
+*@
+<div class="container">
+    <div class="row mt-3 ">
+        <div class="col">
+            <h1 class="display-4">
+                <span class="badge bg-light rounded bg-dark">Add New Product</span>
+            </h1>
+        </div>
+    </div>
+</div>
+<div class="modal" tabindex="-1" id="newproducts">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header  bg-dark text-white">
+                <h5 class="modal-title">Add New Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div> <div class="modal-body">
+                <form asp-action="AddNewItem" method="post">
+                    <div class="row">
+                        <div class="col">
+                            <label class="form-label" for="newitem">Product Name</label>
+                            <input type="text" id="newitem" name="Name" class="form-control form-control-sm" required />
+                        </div> <div class="col">
+                            <label class="form-label" for="description">Product Description</label>
+                            <input type="text" id="description" name="Description" class="form-control form-control-sm" required />
+                        </div>
+                    </div>
+                    <div class="row mt-5">
+                        <div class="col text-center">
+                            <button type="submit" class="btn btn-dark bg-dark" data-bs-dismiss="modal">Save</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>                   
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@*                     @if (TempData["adding"] == "true")
+                    {
+                        <p>The product has been added successfully</p>
+                    }
+                    else
+                    {
+                        <p>The product could not be added.</p>
+                    } *@
+@*//----------------------------------------------------------------------DelJAVASCRIPT---------------------------------------------------------------------
+ *@
+<div class="modal" tabindex="-1" id="confirm">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title">Confirm Deletion</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you want to delete?!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="Confiremdel1()">Yes</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+@* --------------------------------------------------------------------------------------------------------------------------------------------------------- *@
+
+@*//---------------------------------------------------------------UpdateJS--------------------------------------------------------------------------------- *@
+<div class="modal" tabindex="-1" id="update">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white"> <h5 class="modal-title">Edit Data</h5> <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> </div> <div class="modal-body">
+                <form asp-action="Update" method="post">
+                    <input type="hidden" id="Id" name="Id" />
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <label class="form-text">Product Name</label>
+                            <input type="text" id="Name" name="Name" class="form-control" />
+                        </div>
+                        <div class="col-sm-6">
+                            <label class="form-text">Product Description</label>
+                            <input type="text" id="Description" name="Description" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col text-center">
+                            <button type="submit" class="btn btn-info" data-bs-dismiss="modal">Update</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@*//----------------------------------------------------------------------------------------------------------------------------------------------------- *@
+
+<!-- Table for displaying products -->
+<div class="row ">
+    <div class="col-sm-12">
+        <div class="card mt-4">
+            <div class="card-body">
+                <table class="table table-bordered text-center">
+                    <thead class="bg-dark text-white">
+                        <tr>
+                            <th>Product Number</th>
+                            <th>Product Name</th>
+                            <th>Product Description</th>
+                            <th colspan="2">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Name</td>
+                                <td>@item.Description</td>
+                                <td><a onclick="ShowDelMessage(@item.Id)"><i class="bi bi-archive-fill text-danger"></i></a></td>
+                                <td><a onclick="update(@item.Id)"><i class="bi bi-pencil-fill icon-dark-purple"></i></a></td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row text-center mt-5">
+    <div class="col">
+        <button class="btn btn-dark bg-dark" onclick="AddNewItems()">  <i class="fs-4 bi-cart-plus p-2"></i> Add Product  </button>
+    </div>
+</div>
