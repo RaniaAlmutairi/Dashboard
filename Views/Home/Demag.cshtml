@@ -77,13 +77,13 @@
             </div>
             <div class="modal-body">
                 <form asp-action="Update3" method="post">
-                    <input type="hidden" id="Id" />
-                    <input type="hidden" id="Id_Product" />
-           
+                    <input type="hidden" id="Id" name="Id" />
+                    <input type="hidden" id="Id_Product" name="ProductId" />
+
                     <div class="row">
                         <div class="col">
                             <label class="form-text">Quantity</label>
-                            <input type="text" id="Qty" name="Qty" class="form-control" />
+                            <input type="text" id="qty" name="qty" class="form-control" />
                         </div>
                     </div>
                     <div class="row mt-4">

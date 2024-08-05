@@ -55,7 +55,7 @@ function update2(id) {
     var qty = document.getElementById("Qty");
     var price = document.getElementById("Price");
     var img = document.getElementById("Images");
-/*    var pid = document.getElementById("ProductId");*/
+    var pid = document.getElementById("Id_Product");
 
     $.ajax({
         url: "/Home/GetData2",
@@ -63,33 +63,33 @@ function update2(id) {
         type: "POST",
         success: function (result) {
             console.table(result);
-            iid.value = result.iid;
+            iid.value = result.id;
             color.value = result.color;
             qty.value = result.qty;
             price.value = result.price;
-            img.value = result.img;
-/*          pid.value = result.pid;*/
-
+            img.value = result.images;
+            pid.value = result.productId;
         },
     });
     $('#update2').modal('show');
 }
 
 
+
 function update3(id) {
     var iid = document.getElementById("Id");
-    var qty = document.getElementById("Qty");
-    var pid = document.getElementById("ProductId");
+    var qty = document.getElementById("qty");
+    var pid = document.getElementById("Id_Product");
 
     $.ajax({
         url: "/Home/GetData3",
         data: { id: id },
         type: "POST",
         success: function (result) {
-            iid.value = result.iid;
-            qty.value = result.qty;
-            pid.value = result.pid;
             console.table(result);
+            iid.value = result.id;
+            qty.value = result.qty;
+            pid.value = result.productId;
         },
     });
     $('#update3').modal('show');

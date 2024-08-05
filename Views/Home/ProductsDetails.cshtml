@@ -74,10 +74,10 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form asp-action="Update2" method="post">
-                    <input type="hidden" id="Id" />
-                    <input type="hidden" id="Id_Product" />
-                    <input type="hidden" id="Images" />
+                <form asp-action="Update2" method="post" enctype="multipart/form-data">
+                    <input type="hidden" id="Id" name="Id" />
+                    <input type="hidden" id="Id_Product" name="ProductId" />
+                    <input type="hidden" id="Images" name="Images" />
                     <div class="row">
                         <div class="col-sm-6">
                             <label class="form-text">Product Price</label>
@@ -91,13 +91,18 @@
                     <div class="row">
                         <div class="col">
                             <label class="form-text">Product Color</label>
-                            <input type="text" id="Color" name="Color"class="form-control" />
-                          
+                            <input type="text" id="Color" name="Color" class="form-control" />
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="col">
+                            <label class="form-text">Upload New Image</label>
+                            <input type="file" id="newImage" name="newImage" class="form-control" />
                         </div>
                     </div>
                     <div class="row mt-4">
                         <div class="col text-center">
-                            <button type="submit" class="btn btn-info  data-bs-dismiss=" modal"">Update</button>
+                            <button type="submit" class="btn btn-info" data-bs-dismiss="modal">Update</button>
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                         </div>
                     </div>
@@ -171,8 +176,5 @@
         </button>
     </div>
 </div>
-
-
-
 
 

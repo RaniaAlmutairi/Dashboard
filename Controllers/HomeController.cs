@@ -22,10 +22,11 @@ namespace DashboardProject.Controllers
         [Authorize]
         public IActionResult Index()
         {
+            //Authrized
             var username = HttpContext.User.Identity.Name ?? null;
             CookieOptions cookie = new CookieOptions();
             cookie.Expires = DateTime.Now.AddMinutes(1);
-            Response.Cookies.Append("userdata", username ,cookie);
+            Response.Cookies.Append("userdata", username, cookie);
             ViewBag.Username = Request.Cookies["userdata"];
             var prod = _context.products.ToList();
             ViewBag.Products = prod;
@@ -155,19 +156,47 @@ namespace DashboardProject.Controllers
 
         }
         //----------------------------------------Updating----------------------------------
-        public IActionResult Update2(ProductDetails p)
+        [HttpPost]
+        public IActionResult Update2(ProductDetails vm, IFormFile? newImage)
         {
+
+
             if (ModelState.IsValid)
             {
-                _context.productsDetails.Update(p);
+                var productDetails = _context.productsDetails.Find(vm.Id);
+                if (productDetails == null)
+                {
+                    return NotFound();
+                }
+
+                productDetails.Color = vm.Color;
+                productDetails.Qty = vm.Qty;
+                productDetails.Price = vm.Price;
+                productDetails.ProductId = vm.ProductId;
+
+                if (newImage != null && newImage.Length > 0)
+                {
+                    var path = Path.Combine(_webHostEnvironment.WebRootPath, "img", newImage.FileName);
+
+                    using (var stream = new FileStream(path, FileMode.Create))
+                    {
+                        newImage.CopyTo(stream);
+                    }
+                    productDetails.Images = newImage.FileName;
+                }
+
+                _context.productsDetails.Update(productDetails);
                 _context.SaveChanges();
+                return RedirectToAction("ProductsDetails");
             }
-            return RedirectToAction("ProductsDetails");
+            return View(vm);
         }
+
+
         //------------------------------------------AddDamageProduct--------------------------------------------
         public IActionResult AddDemag(DamagedProducts damege)
         {
-         
+
 
             _context.Add(damege);
             _context.SaveChanges();
@@ -184,7 +213,7 @@ namespace DashboardProject.Controllers
             }
             return RedirectToAction("Demag");
         }
-       
+
         //------------------------------------------ShowDamageProductDetails--------------------------------------
         public IActionResult Demag()
         {
