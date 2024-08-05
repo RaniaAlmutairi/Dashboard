@@ -6,7 +6,7 @@ using System.Diagnostics;
 
 namespace DashboardProject.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController :  Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ApplicationDbContext _context;
