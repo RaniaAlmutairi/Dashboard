@@ -14,15 +14,16 @@ function ShowDelMessage(id) {
     $('#confirm').modal('show');
 }
 function Confiremdel1() {
-
     $.ajax({
         url: "/Home/Delete",
         data: { record_no: gid },
         type: "POST",
         success: function (result) {
-            console.table(result)
             alert(result.deleteMessage);
             location.reload();
+        },
+        error: function (xhr, status, error) {
+            alert("An error occurred while deleting the product: " + error);
         }
     });
 }
