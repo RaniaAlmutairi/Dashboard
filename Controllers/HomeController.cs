@@ -54,12 +54,52 @@ namespace DashboardProject.Controllers
 
             if (productdel != null)
             {
+                Console.WriteLine("Product found, deleting...");
                 _context.products.Remove(productdel);
                 _context.SaveChanges();
                 return Json(new { deleteMessage = "The product has been deleted" });
             }
             else
             {
+                Console.WriteLine("Product not found, unable to delete");
+                return Json(new { deleteMessage = "Failed to delete the product" });
+            }
+        }
+        //---------------------------------------Delete2------------------------------------------
+        [HttpPost]
+        public JsonResult Delete2(int record_no)
+        {
+            var productdel = _context.productsDetails.SingleOrDefault(p => p.Id == record_no);
+
+            if (productdel != null)
+            {
+                Console.WriteLine("Product found, deleting...");
+                _context.productsDetails.Remove(productdel);
+                _context.SaveChanges();
+                return Json(new { deleteMessage = "The product has been deleted" });
+            }
+            else
+            {
+                Console.WriteLine("Product not found, unable to delete");
+                return Json(new { deleteMessage = "Failed to delete the product" });
+            }
+        }
+        //---------------------------------------Delete3------------------------------------------
+        [HttpPost]
+        public JsonResult Delete3(int record_no)
+        {
+            var productdel = _context.damagedProduct.SingleOrDefault(p => p.Id == record_no);
+
+            if (productdel != null)
+            {
+                Console.WriteLine("Product found, deleting...");
+                _context.damagedProduct.Remove(productdel);
+                _context.SaveChanges();
+                return Json(new { deleteMessage = "The product has been deleted" });
+            }
+            else
+            {
+                Console.WriteLine("Product not found, unable to delete");
                 return Json(new { deleteMessage = "Failed to delete the product" });
             }
         }

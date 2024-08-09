@@ -10,23 +10,81 @@ function CreatDetails() {
     $('#createDetailsId').modal('show');
 }
 function ShowDelMessage(id) {
+    console.log("ShowDelMessage called with id:", id);
     gid = id;
     $('#confirm').modal('show');
 }
+
 function Confiremdel1() {
+    console.log("Confiremdel1 called");
     $.ajax({
         url: "/Home/Delete",
         data: { record_no: gid },
         type: "POST",
         success: function (result) {
+            console.log("Delete success:", result.deleteMessage);
             alert(result.deleteMessage);
-            location.reload();
+            location.reload(function () {
+                console.log("Page reloaded");
+            });
         },
         error: function (xhr, status, error) {
+            console.error("Error deleting product:", error);
             alert("An error occurred while deleting the product: " + error);
         }
     });
 }
+function ShowDelMessage2(id) {
+    console.log("ShowDelMessage2 called with id:", id);
+    gid = id;
+    $('#confirm2').modal('show');
+}
+
+function Confiremdel2() {
+    console.log("Confiremdel2 called");
+    $.ajax({
+        url: "/Home/Delete2",
+        data: { record_no: gid },
+        type: "POST",
+        success: function (result) {
+            console.log("Delete success:", result.deleteMessage);
+            alert(result.deleteMessage);
+            location.reload(function () {
+                console.log("Page reloaded");
+            });
+        },
+        error: function (xhr, status, error) {
+            console.error("Error deleting product:", error);
+            alert("An error occurred while deleting the product: " + error);
+        }
+    });
+}
+function ShowDelMessage3(id) {
+    console.log("ShowDelMessage3 called with id:", id);
+    gid = id;
+    $('#confirm3').modal('show');
+}
+
+function Confiremdel3() {
+    console.log("Confiremdel2 called");
+    $.ajax({
+        url: "/Home/Delete3",
+        data: { record_no: gid },
+        type: "POST",
+        success: function (result) {
+            console.log("Delete success:", result.deleteMessage);
+            alert(result.deleteMessage);
+            location.reload(function () {
+                console.log("Page reloaded");
+            });
+        },
+        error: function (xhr, status, error) {
+            console.error("Error deleting product:", error);
+            alert("An error occurred while deleting the product: " + error);
+        }
+    });
+}
+
 function update(id) {
     var id1 = document.getElementById("Id");
     var name = document.getElementById("Name");
